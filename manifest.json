@@ -11,7 +11,8 @@
     "tabs",
     "activeTab",
     "scripting",
-    "cookies"
+    "cookies",
+    "storage"
   ],
   "host_permissions": [
     "https://*.smartschool.be/*"

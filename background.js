@@ -9,6 +9,9 @@ async function getTabUrl() {
     return tab.url;
 }
 
+
+
+
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     try {
         if (changeInfo.url && changeInfo.url.includes("hdc.smartschool.be")) {
