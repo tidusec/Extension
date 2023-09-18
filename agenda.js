@@ -197,6 +197,7 @@ button.addEventListener("click", function (qualifiedName, value) {
                         classdropdown.innerHTML = classname;
                     });
                     classdropdownmenu.appendChild(classbutton);
+
                 }
 
             });
