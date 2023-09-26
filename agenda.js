@@ -193,7 +193,7 @@ button.addEventListener("click", function (qualifiedName, value) {
                 for (let classname of classes) {
                     let classbutton = document.createElement("button");
                     classbutton.classList = "bubble__menu-btn js-menu-btn bubble__menu-btn--no-icon";
-                    classbutton.setAttribute("style", "margin-top: 5%; margin-bottom: 5%; width: 100%; font-size: 90%; text-align: left; min-height: 20%;");
+                    classbutton.setAttribute("style", "margin-top: 10%; margin-bottom: 5%; width: 100%; font-size: 80%; text-align: left; min-height: 42%;");
                     let shortenedClassname = classname.substring(0, 40) + "...";
                     classbutton.innerHTML = shortenedClassname;
                     classbutton.addEventListener("click", function() {
@@ -248,15 +248,17 @@ button.addEventListener("click", function (qualifiedName, value) {
                     if (classhours !== undefined) {
                         console.log("classhours is not undefined")
                         for (let i = 0; i < classhours.length; i++) {
+                            // fix it to appear chronologically
+                            // implement to check if HT is possible to plan based on limits
                             let classhou = classhours[i];
                             let classbutton = document.createElement("button");
                             classbutton.classList = "bubble__menu-btn js-menu-btn bubble__menu-btn--no-icon";
                             classbutton.setAttribute("style", "margin-top: 10px; margin-bottom: 10px; width: 100%; font-size: 13px; text-align: left; min-height: 37px;");
-                            let shortenedClasshour = classhour.period.dateTimeFrom.substring(0, 10) + " " + classhou.period.dateTimeFrom.substring(11, 16) + " - " + classhou.period.dateTimeTo.substring(11, 16);
+                            let shortenedClasshour = classhou.period.dateTimeFrom.substring(0, 10) + " " + classhou.period.dateTimeFrom.substring(11, 16) + " - " + classhou.period.dateTimeTo.substring(11, 16);
                             classbutton.innerHTML = shortenedClasshour;
                             classbutton.addEventListener("click", function() {
                                 datedropdownmenu.remove();
-                                datedropdown.innerHTML = classhour;
+                                datedropdown.innerHTML = shortenedClasshour;
                             });
                             datedropdownmenu.appendChild(classbutton);
                         }
