@@ -54,7 +54,7 @@ async function getPlannedElements(startDate, endDate, school_id=schoolid, user_i
 }
 
 async function CalculateDaysWhenAClassIsGiven(subjectnametofind) {
-    GetClassesThatTeachersTeach(subjectnametofind).then(classes => {
+    return GetClassesThatTeachersTeach(subjectnametofind).then(classes => {
         let classhoursforsubject = [];
         console.log(classes)
         for (let element of classes) {
@@ -67,6 +67,8 @@ async function CalculateDaysWhenAClassIsGiven(subjectnametofind) {
             classhoursforsubject.push(element);
         }
         return classhoursforsubject;
+
+        // return this in the function CalculateDaysWhenAClassIsGiven
     });
 }
 
@@ -161,7 +163,8 @@ button.addEventListener("click", function (qualifiedName, value) {
         popup.setAttribute("bubble", "");
         popup.setAttribute("tabindex", "-1");
         popup.setAttribute("x-placement", "bottom");
-        popup.setAttribute("style", "position: absolute; top: 104px; left: 1507px; will-change: top, left;");
+        // set position in the middle of the screen
+        popup.setAttribute("style", "position: absolute; top: 12%; left: 90%; height: 20%; width: 10%; will-change: top, left;");
         document.body.appendChild(popup);
 
         // dropdown allowing to select class (like: <button class="btn btn--select-dropdown js-btn selectview__dropdown">4</button><div class="">dagen)
@@ -169,6 +172,7 @@ button.addEventListener("click", function (qualifiedName, value) {
         let classdropdown = document.createElement("button");
         classdropdown.classList = "btn btn--select-dropdown js-btn selectview__dropdown";
         classdropdown.innerHTML = "Selecteer klas";
+        classdropdown.setAttribute("style", "width: 100%; margin-bottom: 5%;");
         popup.appendChild(classdropdown);
 
         GetClassesThatTeachersTeach().then(classes => {
@@ -179,7 +183,7 @@ button.addEventListener("click", function (qualifiedName, value) {
                 let classdropdownmenu = document.createElement("div");
                 // scrollable and I want the displayed height to be 200px but that you can scroll through all the classes
 
-                classdropdownmenu.setAttribute("style", "height: 200px; width: 250px; position: absolute; top: 150px; left: 1507px; size: absolute; overflow-y: scroll; overflow-x: hidden;")
+                classdropdownmenu.setAttribute("style", "height: 20%; width: 10%; position: absolute; top: 12%; left: 80%; size: absolute; overflow-y: scroll; overflow-x: hidden;")
                 classdropdownmenu.classList = "bubble js-bubble hour-select__bubble";
                 classdropdownmenu.setAttribute("bubble", "");
                 classdropdownmenu.setAttribute("tabindex", "-1");
@@ -189,8 +193,8 @@ button.addEventListener("click", function (qualifiedName, value) {
                 for (let classname of classes) {
                     let classbutton = document.createElement("button");
                     classbutton.classList = "bubble__menu-btn js-menu-btn bubble__menu-btn--no-icon";
-                    classbutton.setAttribute("style", "margin-top: 10px; margin-bottom: 10px; width: 100%; font-size: 13px; text-align: left; min-height: 37px;");
-                    let shortenedClassname = classname.substring(0, 50) + "...";
+                    classbutton.setAttribute("style", "margin-top: 5%; margin-bottom: 5%; width: 100%; font-size: 90%; text-align: left; min-height: 20%;");
+                    let shortenedClassname = classname.substring(0, 40) + "...";
                     classbutton.innerHTML = shortenedClassname;
                     classbutton.addEventListener("click", function() {
                         classdropdownmenu.remove();
@@ -209,6 +213,7 @@ button.addEventListener("click", function (qualifiedName, value) {
         let datedropdown = document.createElement("button");
         datedropdown.classList = "btn btn--select-dropdown js-btn selectview__dropdown";
         datedropdown.innerHTML = "Selecteer datum";
+        datedropdown.setAttribute("style", "width: 100%; margin-bottom: 5%;");
         popup.appendChild(datedropdown);
 
         datedropdown.addEventListener("click", function() {
@@ -224,12 +229,14 @@ button.addEventListener("click", function (qualifiedName, value) {
 
                     let datedropdownmenu = document.createElement("div");
 
-                    datedropdownmenu.setAttribute("style", "height: 200px; width: 250px; position: absolute; top: 150px; left: 1507px; size: absolute; overflow-y: scroll; overflow-x: hidden;")
+                    datedropdownmenu.setAttribute("style", "height: 20%; width: 10%; position: absolute; top: 12%; left: 80%; size: absolute; overflow-y: scroll; overflow-x: hidden;")
                     datedropdownmenu.classList = "bubble js-bubble hour-select__bubble";
                     datedropdownmenu.setAttribute("bubble", "");
                     datedropdownmenu.setAttribute("tabindex", "-1");
                     datedropdownmenu.setAttribute("x-placement", "bottom");
                     document.body.appendChild(datedropdownmenu);
+
+                    // hi
 
                     // [{"id":"003a2652-86fb-5175-8a53-fb3c4e7f6dca","platformId":3589,"period":{"dateTimeFrom":"2023-10-10T11:20:00+02:00","dateTimeTo":"2023-10-10T12:10:00+02:00","wholeDay":false,"deadline":false},"organisers":{"users":[{"id":"3589_6736_0","pictureHash":"initials_PC","pictureUrl":"https:\/\/userpicture20.smartschool.be\/User\/Userimage\/hashimage\/hash\/initials_PC\/plain\/1\/res\/128","description":{"startingWithFirstName":"","startingWithLastName":""},"name":{"startingWithFirstName":"Pietro CAPUTO","startingWithLastName":"CAPUTO Pietro"},"sort":"caputo-pietro"}]},"participants":{"groups":[{"identifier":"3589_1320","id":"3589_1320","platformId":3589,"name":"6EMT","type":"K","icon":"briefcase","sort":"6EMT"},{"identifier":"3589_150","id":"3589_150","platformId":3589,"name":"6EWI","type":"K","icon":"briefcase","sort":"6EWI"},{"identifier":"3589_164","id":"3589_164","platformId":3589,"name":"6LWIe","type":"K","ico
 
@@ -238,7 +245,7 @@ button.addEventListener("click", function (qualifiedName, value) {
 
 
 
-                    /*if (classhours !== undefined) {
+                    if (classhours !== undefined) {
                         console.log("classhours is not undefined")
                         for (let i = 0; i < classhours.length; i++) {
                             let classhou = classhours[i];
@@ -253,7 +260,9 @@ button.addEventListener("click", function (qualifiedName, value) {
                             });
                             datedropdownmenu.appendChild(classbutton);
                         }
-                    }*/
+                    } else {
+                        console.log("classhours is undefined")
+                    }
 
                 });
             }
