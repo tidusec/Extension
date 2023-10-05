@@ -164,7 +164,7 @@ button.addEventListener("click", function (qualifiedName, value) {
         popup.setAttribute("tabindex", "-1");
         popup.setAttribute("x-placement", "bottom");
         // set position in the middle of the screen
-        popup.setAttribute("style", "position: absolute; top: 12%; left: 90%; height: 20%; width: 10%; will-change: top, left;");
+        popup.setAttribute("style", "position: absolute; top: 12%; left: 90%; height: 30%; width: 10%; will-change: top, left;");
         document.body.appendChild(popup);
 
         // dropdown allowing to select class (like: <button class="btn btn--select-dropdown js-btn selectview__dropdown">4</button><div class="">dagen)
@@ -175,8 +175,15 @@ button.addEventListener("click", function (qualifiedName, value) {
         classdropdown.setAttribute("style", "width: 100%; margin-bottom: 5%;");
         popup.appendChild(classdropdown);
 
+        let classvisible = false;
+
         GetClassesThatTeachersTeach().then(classes => {
             classdropdown.addEventListener("click", function() {
+                if (classvisible === true) {
+                    classdropdownmenu.remove();
+                    classvisible = false;
+                    return;
+                }
                 // create a dropdown with all the classes, make the dropdown small and make it scrollable, when
                 // a class is clicked, add it to the button and still keep the dropdown open
 
@@ -199,11 +206,12 @@ button.addEventListener("click", function (qualifiedName, value) {
                     classbutton.addEventListener("click", function() {
                         classdropdownmenu.remove();
                         classdropdown.innerHTML = classname;
+                        classvisible = false;
                     });
                     classdropdownmenu.appendChild(classbutton);
 
                 }
-
+                classvisible = true;
             });
         });
 
@@ -247,9 +255,19 @@ button.addEventListener("click", function (qualifiedName, value) {
 
                     if (classhours !== undefined) {
                         console.log("classhours is not undefined")
+
+                        classhours.sort(function(a, b) {
+                            const dateA = new Date(a.period.dateTimeFrom);
+                            const dateB = new Date(b.period.dateTimeFrom);
+                            return dateA - dateB;
+                        });
+
+                        console.log(classhours)
+
                         for (let i = 0; i < classhours.length; i++) {
                             // fix it to appear chronologically
                             // implement to check if HT is possible to plan based on limits
+
                             let classhou = classhours[i];
                             let classbutton = document.createElement("button");
                             classbutton.classList = "bubble__menu-btn js-menu-btn bubble__menu-btn--no-icon";
@@ -262,6 +280,11 @@ button.addEventListener("click", function (qualifiedName, value) {
                             });
                             datedropdownmenu.appendChild(classbutton);
                         }
+
+                        // chronological order
+                        // classhours.sort(function(a, b) {
+                        //     return a.period.dateTimeFrom - b.period.dateTimeFrom;
+                        // });
                     } else {
                         console.log("classhours is undefined")
                     }
@@ -269,6 +292,15 @@ button.addEventListener("click", function (qualifiedName, value) {
                 });
             }
         });
+
+        // title box
+        let titlebox = document.createElement("input");
+        titlebox.setAttribute("type", "text");
+        titlebox.setAttribute("placeholder", "Titel");
+        titlebox.setAttribute("style", "width: 100%; margin-bottom: 5%;");
+        popup.appendChild(titlebox);
+
+
 
         let submit = document.createElement("button");
         submit.innerHTML = "SUBMIT HT";
